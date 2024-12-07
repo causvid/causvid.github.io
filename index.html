@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>From Slow Bidirectional to Fast Causal Video Generators</title>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggleButton = document.getElementById('toggleButton');
+      const tocContent = document.getElementById('tocContent');
+      const tocHeader = document.querySelector('.toc-header');
+
+      function toggleMenu() {
+        tocContent.classList.toggle('collapsed');
+        toggleButton.textContent = tocContent.classList.contains('collapsed') ? '▶' : '▼';
+      }
+
+      tocHeader.addEventListener('click', toggleMenu);
+    });
+
+  </script>
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans&family=Noto+Sans&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="preload" href="./static/css/index.css" as="style">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script defer src="./static/js/bulma-carousel.min.js"></script>
+  <script defer src="./static/js/bulma-slider.min.js"></script>
+  <script defer src="./static/js/index.js"></script>
+
+
+</head>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">From Slow Bidirectional to Fast Causal <br> Video Generators</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://tianweiy.github.io/">Tianwei Yin</a><sup>1*</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/qiang-zhang-6b48791a7/">Qiang Zhang</a><sup>2*</sup>,
+              </span>
+              <span class="author-block">
+                <a href="http://richzhang.github.io/">Richard Zhang</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://billf.mit.edu/">Bill Freeman</a><sup>1</sup>,
+              </span>
+              <br>
+              <span class="author-block">
+                <a href="https://people.csail.mit.edu/fredo/">Frédo Durand</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://research.adobe.com/person/eli-shechtman/">Eli Shechtman</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.xunhuang.me/">Xun Huang</a><sup>2</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>MIT,</span>
+              <span class="author-block"><sup>2</sup>Adobe,</span>
+              <span class="author-block"><sup>*</sup>Equal Contribution</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="./causvid_paper.pdf" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body" id="demo">
+        <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+          <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/causvid_teaser.mp4"
+            type="video/mp4">
+        </video>
+        <h2 class="subtitle has-text-centered" style="font-size: 1.25em;">
+          Instant video generation that plays the moment you hit Generate!
+        </h2>
+        <p style="font-size: 1em; margin-top: 10px; text-align: center;">
+          (This webpage contains a lot of videos. We suggest using Chrome for the best experience.)
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <nav id="toc">
+      <div class="toc-header">
+        <span>Webpage Menu</span>
+        <button id="toggleButton">▼</button>
+      </div>
+      <ul id="tocContent">
+        <li><a href="#demo">Top: Demo video</a></li>
+        <li><a href="#abstract">1. Abstract</a></li>
+        <li><a href="#overview">2. CausVid Method Overview</a></li>
+        <li><a href="#result">3. Quantitative Result</a></li>
+        <li><a href="#ui">4. Interactive UI</a></li>
+        <li><a href="#text2short">5. Text to 10-second Short Video Generation</a></li>
+        <li><a href="#text2long">6. Text to 60-second Long Video Generation</a></li>
+        <li><a href="#image2video">7. Zero-shot Image to Video Generation</a></li>
+        <li><a href="#text2shortcomparison">8. Text to Short Video Qualitative Comparison</a></li>
+        <li><a href="#text2longcomparison">9. Text to Long Video Qualitative Comparison</a></li>
+        <li><a href="#ablation">10. Ablation Studies</a></li>
+        <li><a href="#bidir">11. Comparison with Bidirectional Teacher</a></li>
+        <li><a href="#postprocessing">12. Frame Interpolation and Deflickering</a></li>
+      </ul>
+    </nav>
+  </section>
+
+
+  <!-- Results. -->
+  <section class="hero is-small">
+    <!-- <section class="section"> -->
+    <div class="hero-body ">
+      <hr>
+      <div class="container " id="abstract">
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">Abstract</h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <p>
+            Current video diffusion models achieve impressive generation quality but struggle in interactive
+            applications due to bidirectional attention dependencies. The generation of a single frame requires the
+            model to process the entire sequence, including the future. We address this limitation by adapting a
+            pretrained bidirectional diffusion transformer to a causal transformer that generates frames on-the-fly. To
+            further reduce latency, we extend distribution matching distillation (DMD) to videos, distilling 50-step
+            diffusion model into a 4-step generator. To enable stable and high-quality distillation, we introduce a
+            student initialization scheme based on teacher's ODE trajectories, as well as an asymmetric distillation
+            strategy that supervises a causal student model with a bidirectional teacher. This approach effectively
+            mitigates error accumulation in autoregressive generation, allowing long-duration video synthesis despite
+            training on short clips. Our model achieves a total score of 82.85 on VBench-Long, outperforming all
+            published approaches. Notably, it supports fast streaming inference at 9.4 FPS on a single GPU thanks to KV
+            caching. Our approach also enables streaming video-to-video translation, image-to-video, and dynamic
+            prompting in a zero-shot manner. We will release the code based on an open-source model in the future. </p>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <hr>
+      <div class="container " id="overview">
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">CausVid Method Overview</h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <figure class="image is-centered">
+            <img src="images/methods.jpg">
+          </figure>
+          <p>
+            Our method distills a many-step, bidirectional video diffusion model <strong>s<sub>data</sub></strong> into
+            a 4-step, causal generator <strong>G<sub>ϕ</sub></strong>.
+            The training process consists of two stages:
+            (1) Student Initialization: We initialize the causal student by pretraining it on a small set of ODE
+            solution pairs generated by the bidirectional teacher.
+            This step helps stabilize the subsequent distillation training.
+            (2) Asymmetric Distillation: Using the <em>bidirectional</em> teacher model, we train the <em>causal</em>
+            student generator through a distribution matching distillation loss.
+          </p>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <hr>
+      <div class="container " id="result">
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">State-of-the-art Text-to-Video Generation Quality
+        </h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <p>
+            Our model achieves a total score of 82.85 on VBench-Long, outperforming all published approaches and
+            uniquely enabling fast streaming inference on a single GPU at 9.4 FPS.
+            The radar plot visualizes our method's comprehensive performance advantages across several key metrics,
+            including dynamic degree, aesthetic quality, imaging quality, object class, multiple objects, and human
+            action.
+            Additionally, based on our human evaluation, our fast model surpasses competing approaches—such as
+            CogVideoX, PyramidFlow, MovieGen, and our bidirectional teacher—all of which are significantly slower by
+            several orders of magnitude.
+          </p>
+          <div class="columns is-centered">
+            <figure class="column is-half image">
+              <img src="images/radar.jpg" alt="Radar Plot">
+            </figure>
+            <figure class="column is-half image">
+              <img src="images/preference.jpg" alt="Preference Evaluation">
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <hr>
+      <div class="container " id="ui">
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">Interactive UI</h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <p>
+            We present an interactive user interface (UI) featuring text-to-10s video generation, infinitely long video
+            generation through sliding window inference, and image-to-video generation capabilities.
+          </p>
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/ui.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <hr>
+      <div class="container " id="text2short">
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">Text to 10-second Short Video Generation</h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <p>
+            Our model generates high-quality videos from text with an initial latency of just 1.3-second, after which
+            frames are generated
+            continuously in a streaming fashion at approximately 9.4 FPS on a single GPU.
+            Below, we present 10-second video results using prompts from MovieGenBench and a fixed random seed of 0.
+          </p>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0008.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A scene that is infinitely boring in its infinite complexity</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0012.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">The slow melting of a snowman, with water trickling down its sides and puddles forming
+            around its base as the temperature warms.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0020.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A dynamic motion shot of a paper airplane morphing into a swan. The pointed nose
+            becomes a graceful neck and head, wings unfolding and expanding. The camera moves around as the flat
+            surfaces gain volume, creases softening into feathers. The tail section splits into webbed feet. The
+            transformation finishes as the swan's plumage turns pristine white, its beak forming from the paper's final
+            fold.</p>
+        </div>
+
+        <div class="item">
+          <video id="berliner" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0002.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">An imposing, atomic-powered, retro-futuristic robot strides down the red carpet at a
+            glamorous movie premiere. Its bulky, gleaming exosuit shines under the bright lights of camera flashes,
+            reflecting the glitz of the event. The robot’s large, round helmet, with its glowing visor, gives it an air
+            of mysterious authority, while the articulated joints in its thick, metallic arms and legs move with
+            precision. Its jetpack, attached to its back, hums softly as it powers the machine forward, and the crowd
+            marvels at the fusion of vintage design and futuristic technology</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0006.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A breathtaking image of a meteor colliding with the surface of a planet, with bright
+            flames and a massive explosion, illustrating the power and destruction of such an event.</p>
+        </div>
+      </div>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0029.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Several giant wooly mammoths approach treading through a snowy meadow, their long wooly
+            fur lightly blows in the wind as they walk, snow covered trees and dramatic snow capped mountains in the
+            distance, mid afternoon light with wispy clouds and a sun high in the distance creates a warm glow, the low
+            camera view is stunning capturing the large furry mammal with beautiful photography, depth of field.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0033.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Cinematic closeup and detailed portrait of a reindeer in a snowy forest at sunset. The
+            lighting is cinematic and gorgeous and soft and sun-kissed, with golden backlight and dreamy bokeh and lens
+            flares. The color grade is cinematic and magical.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0034.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Realistic documentary shot of a large lizard covered in opulent jewels, geodes and
+            pearls as it walks across lush flora. The lizard sparkles and glimmers in the light.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0035.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">a spooky haunted mansion, with friendly jack o lanterns and ghost characters welcoming
+            trick or treaters to the entrance, tilt shift photography</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0022.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">An extreme close-up of an gray-haired man with a beard in his 60s, he is deep in
+            thought pondering the history of the universe as he sits at a cafe in Paris, his eyes focus on people
+            offscreen as they walk as he sits mostly motionless, he is dressed in a wool coat suit coat with a
+            button-down shirt , he wears a brown beret and glasses and has a very professorial appearance, and the end
+            he offers a subtle closed-mouth smile as if he found the answer to the mystery of life, the lighting is very
+            cinematic with the golden light and the Parisian streets and city in the background, depth of field,
+            cinematic 35mm film.</p>
+        </div>
+
+      </div>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0038.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">close up shot of a woman, police lights flashing in background, cinematic, low contrast
+          </p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0040.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">in a beautifully rendered papercraft world, a steamboat travels across a vast ocean
+            with wispy clouds in the sky. vast grassy hills lie in the distant background, and some sealife is visible
+            near the papercraft ocean's surface</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0043.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Macro shot of a man wearing an antique diving helmet with dark glass and a jetpack
+            walking on the veins of a leaf. Realistic style</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0044.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A Samoyed and a Golden Retriever dog are playfully romping through a futuristic neon
+            city at night. The neon lights emitted from the nearby buildings glistens off of their fur.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0046.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Carefully pouring the milk into the cup, the milk flowed smoothly and the cup was
+            gradually filled with a milky white color</p>
+        </div>
+
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <hr>
+
+      <div class="container " id="text2long">
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">Text to 60-second Long Video Generation</h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <p>
+            While our generator is trained on 10-second videos, its autoregressive nature enables it to produce videos
+            of infinite length using sliding window inference. Below, we present 60-second video results generated with
+            prompts from MovieGenBench and a fixed random seed of 0.
+          </p>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video id="item" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/long_videos/60s/0024.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Miniature adorable monsters made out of wool and felt, dancing with each other, 3d
+            render, octane, soft lighting, dreamy bokeh, cinematic.</p>
+        </div>
+
+        <div class="item">
+          <video id="item" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/long_videos/60s/0025.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Panda bear wearing gold-plated stiletto shoes strutting with a sassy demeanor through a
+            haute couture runway</p>
+        </div>
+
+        <div class="item">
+          <video id="item" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/long_videos/60s/0012.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">In a magical garden, plants change colors with each passing breeze, their leaves
+            shimmering and fluttering as a person walks through, reaching out to touch the transforming flora.</p>
+        </div>
+
+        <div class="item">
+          <video id="item" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/long_videos/60s/0014.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Baby dragon</p>
+        </div>
+      </div>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video id="item" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/long_videos/60s/0032.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Camera tracking shot. A man walking down a city street, holding a coffee cup in his
+            hand. He is wearing a dark suit and red tie.</p>
+        </div>
+
+        <div class="item">
+          <video id="item" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/long_videos/60s/0048.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A bear made of strawberrys is walking in the forest, its eyes looking around as if it
+            is seeing the world for the first time.</p>
+        </div>
+
+        <div class="item">
+          <video id="item" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/long_videos/60s/0040.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">3D animation of a small, round, fluffy creature with big, expressive eyes explores a
+            vibrant, enchanted forest. The creature, a whimsical blend of a rabbit and a squirrel, has soft blue fur and
+            a bushy, striped tail. It hops along a sparkling stream, its eyes wide with wonder. The forest is alive with
+            magical elements: flowers that glow and change colors, trees with leaves in shades of purple and silver, and
+            small floating lights that resemble fireflies. The creature stops to interact playfully with a group of
+            tiny, fairy-like beings dancing around a mushroom ring. The creature looks up in awe at a large, glowing
+            tree that seems to be the heart of the forest.</p>
+        </div>
+
+        <div class="item">
+          <video id="item" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/long_videos/60s/0046.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">The gentle bubbling and evaporation of water in a natural hot spring, with mist rising
+            and drifting across the surrounding landscape.</p>
+        </div>
+      </div>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video id="item" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/long_videos/60s/0029.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Visual: A night scene in a city with wet streets reflecting city lights. The camera
+            starts on the reflection in a puddle and pulls up to reveal the source of the reflection—a glowing neon
+            sign—then continues to pull back to show the rain-soaked streets. Camera Movement: Start focused on a
+            close-up of the puddle's reflection, then pull up and back in one fluid motion to reveal the full context of
+            the rainy cityscape.</p>
+        </div>
+        <div class="item">
+          <video id="item" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/long_videos/60s/0016.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">An adorable happy otter confidently stands on a surfboard wearing a yellow lifejacket,
+            riding along turquoise tropical waters near lush tropical islands, 3D digital render art style.</p>
+        </div>
+        <div class="item">
+          <video id="item" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/long_videos/60s/0001.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A llama sits in a cozy reading nook, surrounded by plush pillows and soft blankets.
+            Warm, golden lighting from a floor lamp creates a welcoming atmosphere. The llama reads a picture book
+            aloud, using expressive voices for the characters. The camera captures the llama's animated face and the
+            illustrations in the book.</p>
+        </div>
+        <div class="item">
+          <video id="item" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/long_videos/60s/0018.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A drone camera circles around a beautiful historic church built on a rocky outcropping
+            along the Amalfi Coast, the view showcases historic and magnificent architectural details and tiered
+            pathways and patios, waves are seen crashing against the rocks below as the view overlooks the horizon of
+            the coastal waters and hilly landscapes of the Amalfi Coast Italy, several distant people are seen walking
+            and enjoying vistas on patios of the dramatic ocean views, the warm glow of the afternoon sun creates a
+            magical and romantic feeling to the scene, the view is stunning captured with beautiful photography.</p>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <hr>
+
+      <div class="container " id="image2video">
+        <h2 id="scene-comparison" class="title is-3 has-text-centered">Zero-shot Image to Video Generation</h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <p>
+            Thanks to the autoregressive nature of our model, our model inherently supports zero-shot (text-conditioned)
+            image-to-video generation. Below, we present the results using unseen (prompt, image) pairs from the
+            internet with a
+            fixed random seed of 0.
+          </p>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div id="results-carousel" class="carousel results-carousel">
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v/0000.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">a view of a star trail in the night sky</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v/0001.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Illustration style of a lightbulb product shot in studio on a background of smaller
+            lightbulbs representing ideas brainstorms.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v/0007.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Hand holding a glowing digital brain, representing the concept of artificial
+            intelligence and innovation in technology.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v/0008.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">close up portrait of young bearded guy with long beard.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v/0009.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">satellite dish pointed at the night sky.</p>
+        </div>
+
+      </div>
+      <div id="results-carousel" class="carousel results-carousel">
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v/0010.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Young woman watching virtual reality in VR glasses in her living room.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v/0011.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Watercolor style of a boy on a paper ship in the blue sea waves.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v/0012.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">bionic prosthetic hand on dark background.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v/0017.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">a close-up of a hippopotamus eating grass in a field</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v/0019.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">a highland cow with long horns standing in a field</p>
+        </div>
+
+      </div>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v/0022.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Rocket blasting off from a laptop screen on an organized office table. The rocket
+            leaves the screen and blast into space.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v/0023.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Close up of the feet of a woman in socks walking away on laminate floor at home
+            closeup.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v/0028.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">The festive atmosphere highlights the celebration of the new year, showcasing bright
+            lights and shimmering decorations for 2025.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v/0026.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">two cars that have been involved in a violent collision</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v/0029.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">a man holding a tray in front of a brick wall</p>
+        </div>
+
+      </div>
+      <br>
+      <br>
+      <br>
+
+      <hr>
+
+      <div class="container " id="text2shortcomparison">
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">Text to Short Video Generation Qualitative
+          Comparison</h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <p>
+            We compare our method with CogVideoX and MovieGen, the two leading competing approaches. Notably, our method
+            is the only one that supports streaming inference with an interactive framerate (9.4FPS).
+            In contrast, the other two methods require at least 210 seconds to generate a ten-second video.
+            Below, we present 10-second video results generated using prompts from MovieGenBench and a fixed random seed
+            of 0.
+          </p>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <p><strong style="font-size: 24px;">CogVideoX</strong></p>
+        </div>
+        <div class="column">
+          <p><strong style="font-size: 24px;">MovieGen</strong></p>
+        </div>
+        <div class="column">
+          <p><strong style="font-size: 24px;">CausVid (Ours)</strong></p>
+        </div>
+      </div>
+
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_short/cogvideox/0000.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_short/moviegen/0000.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_short/ours/0000.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">Several giant wooly mammoths approach treading through a snowy meadow, their long wooly fur
+        lightly blows in the wind as they walk, snow covered trees and dramatic snow capped mountains in the distance,
+        mid afternoon light with wispy clouds and a sun high in the distance creates a warm glow, the low camera view is
+        stunning capturing the large furry mammal with beautiful photography, depth of field.</p>
+      <!-- Row 2 -->
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_short/cogvideox/0001.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_short/moviegen/0001.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_short/ours/0001.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">A gorgeously rendered papercraft world of a coral reef, rife with colorful fish and sea
+        creatures.</p>
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_short/cogvideox/0004.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_short/moviegen/0004.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_short/ours/0004.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">A Samoyed and a Golden Retriever dog are playfully romping through a futuristic neon city
+        at night. The neon lights emitted from the nearby buildings glistens off of their fur.</p>
+
+      <br>
+      <br>
+      <br>
+
+      <hr>
+      <div class="container " id="text2longcomparison">
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">Text to Long Video Generation Qualitative
+          Comparison</h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <p>
+            We compare our method with StreamingT2V and FIFO-Diffusion, the two leading competing methods. Our approach
+            stands out as the only one supporting streaming inference with an interactive framerate (9.4FPS). Below, we
+            present 30-second video results generated using prompts from MovieGenBench and a fixed random seed of 0.
+          </p>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <p><strong style="font-size: 24px;">StreamT2V</strong></p>
+        </div>
+        <div class="column">
+          <p><strong style="font-size: 24px;">FIFO-Diffusion</strong></p>
+        </div>
+        <div class="column">
+          <p><strong style="font-size: 24px;">CausVid (Ours)</strong></p>
+        </div>
+      </div>
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_long/streamingt2v/0000.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_long/fifo/0000.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_long/ours/0000.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">A drone camera circles around a beautiful historic church built on a rocky outcropping
+        along the Amalfi Coast, the view showcases historic and magnificent architectural details and tiered pathways
+        and patios, waves are seen crashing against the rocks below as the view overlooks the horizon of the coastal
+        waters and hilly landscapes of the Amalfi Coast Italy, several distant people are seen walking and enjoying
+        vistas on patios of the dramatic ocean views, the warm glow of the afternoon sun creates a magical and romantic
+        feeling to the scene, the view is stunning captured with beautiful photography.</p>
+      <!-- Row 2 -->
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_long/streamingt2v/0001.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_long/fifo/0001.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_long/ours/0001.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">An extreme close-up of an gray-haired man with a beard in his 60s, he is deep in thought
+        pondering the history of the universe as he sits at a cafe in Paris, his eyes focus on people offscreen as they
+        walk as he sits mostly motionless, he is dressed in a wool coat suit coat with a button-down shirt , he wears a
+        brown beret and glasses and has a very professorial appearance, and the end he offers a subtle closed-mouth
+        smile as if he found the answer to the mystery of life, the lighting is very cinematic with the golden light and
+        the Parisian streets and city in the background, depth of field, cinematic 35mm film.</p>
+      <!-- Row 3 -->
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_long/streamingt2v/0002.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_long/fifo/0002.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_long/ours/0002.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">Macro shot of a volcano erupting in a coffee cup.</p>
+
+      <br>
+      <br>
+      <br>
+      <hr>
+      <div class="container " id="ablation">
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">Ablation Studies</h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <p>
+            Below, we provide visual qualitative comparisons to complement the ablation studies presented in the main
+            paper (Table 4). We compare our method against multiple variants, including Causal Teacher (50 steps), Ours
+            w/ Causal Teacher (4 steps), and Ours w/ Bidrectional Teacher (4 steps).
+            The Ours w/ Bidirectional teacher is our final configuration.
+            These comparisons demonstrate that the distillation from a bidirectional teacher model, as employed in our
+            approach, is crucial for generating high-quality videos.
+          </p>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <p><strong style="font-size: 24px;">Causal Teacher (50 step)</strong></p>
+        </div>
+        <div class="column">
+          <p><strong style="font-size: 24px;">Ours w/ Causal Teacher (4-step)</strong></p>
+        </div>
+        <div class="column">
+          <p><strong style="font-size: 24px;">Ours w/ Bidrectional Teacher (4-step)</strong></p>
+        </div>
+      </div>
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/ablation/causal_teacher.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/ablation/ours_causalteacher.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_short/ours/0000.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">Several giant wooly mammoths approach treading through a snowy meadow, their long wooly fur
+        lightly blows in the wind as they walk, snow covered trees and dramatic snow capped mountains in the distance,
+        mid afternoon light with wispy clouds and a sun high in the distance creates a warm glow, the low camera view is
+        stunning capturing the large furry mammal with beautiful photography, depth of field.</p>
+
+      <br>
+      <br>
+      <br>
+      <hr>
+      <div class="container " id="bidir">
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">Comparison with Bidirectional Teacher Model</h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <p>
+            As demonstrated by the quantitative and human evaluations in the paper, our distilled causal model surpasses
+            the bidirectional diffusion teacher in frame-wise quality.
+            However, it demonstrates minor shortcomings, including slightly increased temporal flickering and reduced
+            diversity, pointing to areas for further improvement.
+          </p>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <p><strong style="font-size: 24px;">Bidrectional Teacher (50 step)</strong></p>
+        </div>
+        <div class="column">
+          <p><strong style="font-size: 24px;">Ours (4-step)</strong></p>
+        </div>
+      </div>
+      <!-- Row 1 -->
+
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/bidir_teacher_comp/0001_The_slow_melting.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0012.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">The slow melting of a snowman, with water trickling down its sides and puddles forming
+        around its base as the temperature warms.</p>
+
+      <br>
+
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/bidir_teacher_comp/0002_A_dynamic_motion.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0020.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">A dynamic motion shot of a paper airplane morphing into a swan. The pointed nose
+        becomes a graceful neck and head, wings unfolding and expanding. The camera moves around as the flat
+        surfaces gain volume, creases softening into feathers. The tail section splits into webbed feet. The
+        transformation finishes as the swan's plumage turns pristine white, its beak forming from the paper's final
+        fold.</p>
+
+      <br>
+
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/bidir_teacher_comp/0003_Several_giant_wooly.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0029.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">Several giant wooly mammoths approach treading through a snowy meadow, their long wooly
+        fur lightly blows in the wind as they walk, snow covered trees and dramatic snow capped mountains in the
+        distance, mid afternoon light with wispy clouds and a sun high in the distance creates a warm glow, the low
+        camera view is stunning capturing the large furry mammal with beautiful photography, depth of field.</p>
+
+      <br>
+
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/bidir_teacher_comp/0004_Cinematic_closeup_and.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0033.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">Cinematic closeup and detailed portrait of a reindeer in a snowy forest at sunset. The
+        lighting is cinematic and gorgeous and soft and sun-kissed, with golden backlight and dreamy bokeh and lens
+        flares. The color grade is cinematic and magical.</p>
+
+      <br>
+
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/bidir_teacher_comp/0005_a_spooky_haunted.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0035.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">a spooky haunted mansion, with friendly jack o lanterns and ghost characters welcoming
+        trick or treaters to the entrance, tilt shift photography.</p>
+
+      <br>
+
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/teacher_comparison/teacher_0.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/teacher_comparison/ours_0.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">A drone camera circles around a beautiful historic church built on a rocky outcropping
+        along the Amalfi Coast, the view showcases historic and magnificent architectural details and tiered pathways
+        and patios, waves are seen crashing against the rocks below as the view overlooks the horizon of the coastal
+        waters and hilly landscapes of the Amalfi Coast Italy, several distant people are seen walking and enjoying
+        vistas on patios of the dramatic ocean views, the warm glow of the afternoon sun creates a magical and romantic
+        feeling to the scene, the view is stunning captured with beautiful photography.</p>
+
+      <br>
+
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/teacher_comparison/teacher_1.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/teacher_comparison/ours_1.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">Macro cinematography, slow motion shot: A sculptor's hands shape wet clay on a wheel, and
+        as the wheel spins. Camera captures the tactile quality of the clay and the fluid motion of the sculptor’s
+        hands.</p>
+
+      <br>
+      <br>
+      <br>
+      <hr>
+      <div class="container " id="postprocessing">
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">Frame Interpolation and Deflickering</h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <p>
+            Videos generated by a causal model often exhibit slightly larger temporal discontinuities between
+            consecutive video chunks.
+            Here, we demonstrate that frame interpolation can alleviate the issue.
+            Specifically, we drop the first and last frames of each chunk and interpolate the remaining frames by 4X
+            using
+            <a href="https://github.com/MCG-NJU/EMA-VFI" target="_blank">EMA-VFI</a>.
+            This approach significantly reduces flickering; however, some new motion blurring artifacts may appear.
+            Exploring efficient post-processing techniques is an interesting direction for future research.
+          </p>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <p><strong style="font-size: 24px;">w/o Frame Interpolation</strong></p>
+        </div>
+        <div class="column">
+          <p><strong style="font-size: 24px;">w/ Frame Interpolation</strong></p>
+        </div>
+      </div>
+
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/teacher_comparison/ours_0.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/deflicker/tsr_19.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">A drone camera circles around a beautiful historic church built on a rocky outcropping
+        along the Amalfi Coast, the view showcases historic and magnificent architectural details and tiered pathways
+        and patios, waves are seen crashing against the rocks below as the view overlooks the horizon of the coastal
+        waters and hilly landscapes of the Amalfi Coast Italy, several distant people are seen walking and enjoying
+        vistas on patios of the dramatic ocean views, the warm glow of the afternoon sun creates a magical and romantic
+        feeling to the scene, the view is stunning captured with beautiful photography.</p>
+
+      <br>
+
+      <div id="results-carousel"
+        style="display: flex; justify-content: space-between; align-items: flex-start; gap: 100px;">
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0029.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/deflicker/tsr_1.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="prompt-text">Several giant wooly mammoths approach treading through a snowy meadow, their long wooly
+        fur lightly blows in the wind as they walk, snow covered trees and dramatic snow capped mountains in the
+        distance, mid afternoon light with wispy clouds and a sun high in the distance creates a warm glow, the low
+        camera view is stunning capturing the large furry mammal with beautiful photography, depth of field.</p>
+  </section>
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@article{yin2024causvid,
+        title={From Slow Bidirectional to Fast Causal Video Generators},
+        author={Yin, Tianwei and Zhang, Qiang and Zhang, Richard and Freeman, William T and Durand, Fredo and Shechtman, Eli and Huang, Xun},
+        journal={arXiv},
+        year={2024}
+      }
+  </code></pre>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container" align="center">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website template is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var videos = document.querySelectorAll('#results-carousel video');
+
+      videos.forEach(function (video) {
+        var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        if (!isMobile) {
+          // console.log('Autoplay enabled for non-mobile devices');
+          if (!video.classList.contains('single_image_video')) {
+            video.setAttribute('autoplay', 'autoplay');
+            // video.play().catch(function(error) {
+            //     console.error('Video playback failed:', error);
+            // });
+          }
+
+          // else case is implicit - no action needed for 'single_image_video'
+        } else {
+          console.log('Autoplay disabled for mobile devices');
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>
