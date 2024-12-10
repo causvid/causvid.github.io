@@ -256,13 +256,14 @@
 
       <hr>
       <div class="container " id="text2short">
-        <h2 id="obj-comparison" class="title is-3 has-text-centered">Text to 10-second Short Video Generation</h2>
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">Text to 5-second Short Video Generation</h2>
         <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
           <p>
             Our model generates high-quality videos from text with an initial latency of just 1.3-second, after which
             frames are generated
             continuously in a streaming fashion at approximately 9.4 FPS on a single GPU.
-            Below, we present 10-second video results using prompts from MovieGenBench and a fixed random seed of 0.
+            Our model supports generation at both 12 and 24 FPS. 
+            Below, we present 5-second video results (24 FPS) using prompts from MovieGenBench and a fixed random seed of 0.
           </p>
         </div>
       </div>
@@ -275,7 +276,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0008.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0001_A_scene_that.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">A scene that is infinitely boring in its infinite complexity</p>
@@ -284,7 +285,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0012.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0002_The_slow_melting.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">The slow melting of a snowman, with water trickling down its sides and puddles forming
@@ -294,7 +295,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0020.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0003_A_dynamic_motion.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">A dynamic motion shot of a paper airplane morphing into a swan. The pointed nose
@@ -307,7 +308,7 @@
         <div class="item">
           <video id="berliner" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0002.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0004_An_imposing,_atomic-powered,.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">An imposing, atomic-powered, retro-futuristic robot strides down the red carpet at a
@@ -321,7 +322,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0006.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0005_A_breathtaking_image.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">A breathtaking image of a meteor colliding with the surface of a planet, with bright
@@ -332,7 +333,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0029.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0006_Several_giant_wooly.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Several giant wooly mammoths approach treading through a snowy meadow, their long wooly
@@ -344,7 +345,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0033.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0007_Cinematic_closeup_and.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Cinematic closeup and detailed portrait of a reindeer in a snowy forest at sunset. The
@@ -355,17 +356,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0034.mp4"
-              type="video/mp4">
-          </video>
-          <p class="prompt-text">Realistic documentary shot of a large lizard covered in opulent jewels, geodes and
-            pearls as it walks across lush flora. The lizard sparkles and glimmers in the light.</p>
-        </div>
-
-        <div class="item">
-          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0035.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0009_a_spooky_haunted.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">a spooky haunted mansion, with friendly jack o lanterns and ghost characters welcoming
@@ -375,7 +366,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0022.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0010_An_extreme_close-up.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">An extreme close-up of an gray-haired man with a beard in his 60s, he is deep in
@@ -392,7 +383,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0038.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0011_close_up_shot.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">close up shot of a woman, police lights flashing in background, cinematic, low contrast
@@ -402,7 +393,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0040.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0012_in_a_beautifully.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">in a beautifully rendered papercraft world, a steamboat travels across a vast ocean
@@ -413,7 +404,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0043.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0013_Macro_shot_of.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Macro shot of a man wearing an antique diving helmet with dark glass and a jetpack
@@ -423,7 +414,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0044.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0014_A_Samoyed_and.mp4mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">A Samoyed and a Golden Retriever dog are playfully romping through a futuristic neon
@@ -433,7 +424,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0046.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0015_Carefully_pouring_the.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Carefully pouring the milk into the cup, the milk flowed smoothly and the cup was
@@ -453,7 +444,7 @@
         <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
           <p>
             While our generator is trained on 10-second videos, its autoregressive nature enables it to produce videos
-            of infinite length using sliding window inference. Below, we present 60-second video results generated with
+            of infinite length using sliding window inference. Below, we present 60-second video results (12 FPS) generated with
             prompts from MovieGenBench and a fixed random seed of 0.
           </p>
         </div>
