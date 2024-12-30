@@ -149,7 +149,7 @@
         <li><a href="#text2longcomparison">9. Text to Long Video Qualitative Comparison</a></li>
         <li><a href="#ablation">10. Ablation Studies</a></li>
         <li><a href="#bidir">11. Comparison with Bidirectional Teacher</a></li>
-        <li><a href="#postprocessing">12. Frame Interpolation and Deflickering</a></li>
+        <!-- <li><a href="#postprocessing">12. Frame Interpolation and Deflickering</a></li> -->
       </ul>
     </nav>
   </section>
@@ -176,7 +176,8 @@
             student initialization scheme based on teacher's ODE trajectories, as well as an asymmetric distillation
             strategy that supervises a causal student model with a bidirectional teacher. This approach effectively
             mitigates error accumulation in autoregressive generation, allowing long-duration video synthesis despite
-            training on short clips. Our model supports fast streaming generation of high quality videos at 9.4 FPS on a single GPU thanks to KV
+            training on short clips. Our model supports fast streaming generation of high quality videos at 9.4 FPS on a
+            single GPU thanks to KV
             caching. Our approach also enables streaming video-to-video translation, image-to-video, and dynamic
             prompting in a zero-shot manner. We will release the code based on an open-source model in the future. </p>
         </div>
@@ -218,10 +219,10 @@
         </h2>
         <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
           <p>
-            Our model achieves a total score of 83.88 on VBench (see 
-            <a href="https://huggingface.co/spaces/Vchitect/VBench_Leaderboard">VBench Leaderboard</a>) 
+            Our model achieves a total score of 83.88 on VBench (see
+            <a href="https://huggingface.co/spaces/Vchitect/VBench_Leaderboard">VBench Leaderboard</a>)
             ranking the first place among all verified submissions and
-            uniquely enabling fast streaming inference on a single GPU at 9.4 FPS. 
+            uniquely enabling fast streaming inference on a single GPU at 9.4 FPS.
             The radar plot visualizes our method's comprehensive performance advantages across several key metrics,
             including dynamic degree, aesthetic quality, imaging quality, object class, multiple objects, and human
             action.
@@ -271,8 +272,9 @@
             Our model generates high-quality videos from text with an initial latency of just 1.3-second, after which
             frames are generated
             continuously in a streaming fashion at approximately 9.4 FPS on a single GPU.
-            Our model supports generation at both 12 and 24 FPS. 
-            Below, we present 5-second video results (24 FPS) using prompts from MovieGenBench and a fixed random seed of 0.
+            Our model supports generation at both 12 and 24 FPS.
+            Below, we present 5-second video results (24 FPS) using prompts from MovieGenBench and a fixed random seed
+            of 0.
           </p>
         </div>
       </div>
@@ -285,7 +287,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0001_A_scene_that.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0000.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">A scene that is infinitely boring in its infinite complexity</p>
@@ -294,7 +296,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0002_The_slow_melting.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0001.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">The slow melting of a snowman, with water trickling down its sides and puddles forming
@@ -304,7 +306,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0003_A_dynamic_motion.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0002.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">A dynamic motion shot of a paper airplane morphing into a swan. The pointed nose
@@ -317,7 +319,7 @@
         <div class="item">
           <video id="berliner" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0004_An_imposing,_atomic-powered,.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0003.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">An imposing, atomic-powered, retro-futuristic robot strides down the red carpet at a
@@ -331,7 +333,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0005_A_breathtaking_image.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0004.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">A breathtaking image of a meteor colliding with the surface of a planet, with bright
@@ -342,7 +344,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0006_Several_giant_wooly.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0005.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Several giant wooly mammoths approach treading through a snowy meadow, their long wooly
@@ -354,7 +356,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0007_Cinematic_closeup_and.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0006.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Cinematic closeup and detailed portrait of a reindeer in a snowy forest at sunset. The
@@ -365,7 +367,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0009_a_spooky_haunted.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0007.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">a spooky haunted mansion, with friendly jack o lanterns and ghost characters welcoming
@@ -375,7 +377,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0010_An_extreme_close-up.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0008.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">An extreme close-up of an gray-haired man with a beard in his 60s, he is deep in
@@ -392,7 +394,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0011_close_up_shot.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0009.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">close up shot of a woman, police lights flashing in background, cinematic, low contrast
@@ -402,7 +404,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0012_in_a_beautifully.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0010.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">in a beautifully rendered papercraft world, a steamboat travels across a vast ocean
@@ -413,7 +415,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0013_Macro_shot_of.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0011.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Macro shot of a man wearing an antique diving helmet with dark glass and a jetpack
@@ -423,7 +425,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0014_A_Samoyed_and.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0012.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">A Samoyed and a Golden Retriever dog are playfully romping through a futuristic neon
@@ -433,7 +435,7 @@
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/24fps_videos/0015_Carefully_pouring_the.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0013.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Carefully pouring the milk into the cup, the milk flowed smoothly and the cup was
@@ -453,7 +455,8 @@
         <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
           <p>
             While our generator is trained on short video clips, its autoregressive nature enables it to produce videos
-            of infinite length using sliding window inference. Below, we present 30-second video results (24 FPS) generated with
+            of infinite length using sliding window inference. Below, we present 30-second video results (24 FPS)
+            generated with
             prompts from MovieGenBench and a fixed random seed of 0.
           </p>
         </div>
@@ -467,7 +470,7 @@
         <div class="item">
           <video id="item" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_24fps_videos/0001_Miniature_adorable_monsters.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_t2v_decoded/video_0000.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Miniature adorable monsters made out of wool and felt, dancing with each other, 3d
@@ -477,7 +480,7 @@
         <div class="item">
           <video id="item" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_24fps_videos/0002_panda.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_t2v_decoded/video_0001.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Panda bear wearing gold-plated stiletto shoes strutting with a sassy demeanor through a
@@ -487,7 +490,7 @@
         <div class="item">
           <video id="item" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_24fps_videos/0003_In_a_magical.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_t2v_decoded/video_0002.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">In a magical garden, plants change colors with each passing breeze, their leaves
@@ -497,7 +500,7 @@
         <div class="item">
           <video id="item" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_24fps_videos/0004_Baby_dragon.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_t2v_decoded/video_0003.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Baby dragon</p>
@@ -507,7 +510,7 @@
         <div class="item">
           <video id="item" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_24fps_videos/0005_Camera_tracking_shot..mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_t2v_decoded/video_0004.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Camera tracking shot. A man walking down a city street, holding a coffee cup in his
@@ -517,7 +520,7 @@
         <div class="item">
           <video id="item" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_24fps_videos/0006_A_bear_made.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_t2v_decoded/video_0005.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">A bear made of strawberrys is walking in the forest, its eyes looking around as if it
@@ -527,7 +530,7 @@
         <div class="item">
           <video id="item" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_24fps_videos/0007_3D_animation_of.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_t2v_decoded/video_0006.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">3D animation of a small, round, fluffy creature with big, expressive eyes explores a
@@ -542,7 +545,7 @@
         <div class="item">
           <video id="item" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_24fps_videos/0008_The_gentle_bubbling.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_t2v_decoded/video_0007.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">The gentle bubbling and evaporation of water in a natural hot spring, with mist rising
@@ -553,7 +556,7 @@
         <div class="item">
           <video id="item" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_24fps_videos/0009_Visual%3A_A_night.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_t2v_decoded/video_0008.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Visual: A night scene in a city with wet streets reflecting city lights. The camera
@@ -565,7 +568,7 @@
         <div class="item">
           <video id="item" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_24fps_videos/0010_An_adorable_happy.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_t2v_decoded/video_0009.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">An adorable happy otter confidently stands on a surfboard wearing a yellow lifejacket,
@@ -574,7 +577,7 @@
         <div class="item">
           <video id="item" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_24fps_videos/0011_A_llama_sits.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_t2v_decoded/video_0010.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">A llama sits in a cozy reading nook, surrounded by plush pillows and soft blankets.
@@ -585,7 +588,7 @@
         <div class="item">
           <video id="item" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_24fps_videos/0012_A_drone_camera.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_t2v_decoded/video_0011.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">A drone camera circles around a beautiful historic church built on a rocky outcropping
@@ -623,7 +626,8 @@
 
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v_24fps/video0000-seed0.mp4"
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_i2v_decoded/video_0000.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">a view of a star trail in the night sky</p>
@@ -631,7 +635,8 @@
 
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v_24fps/video0001-seed0.mp4"
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_i2v_decoded/video_0001.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Illustration style of a lightbulb product shot in studio on a background of smaller
@@ -640,7 +645,8 @@
 
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v_24fps/video0002-seed0.mp4"
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_i2v_decoded/video_0002.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Hand holding a glowing digital brain, representing the concept of artificial
@@ -649,7 +655,8 @@
 
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v_24fps/video0003-seed0.mp4"
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_i2v_decoded/video_0003.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">close up portrait of young bearded guy with long beard.</p>
@@ -657,7 +664,8 @@
 
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v_24fps/video0004-seed0.mp4"
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_i2v_decoded/video_0004.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">satellite dish pointed at the night sky.</p>
@@ -668,7 +676,8 @@
 
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v_24fps/video0005-seed0.mp4"
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_i2v_decoded/video_0005.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Young woman watching virtual reality in VR glasses in her living room.</p>
@@ -676,7 +685,8 @@
 
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v_24fps/video0006-seed0.mp4"
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_i2v_decoded/video_0006.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Watercolor style of a boy on a paper ship in the blue sea waves.</p>
@@ -684,7 +694,8 @@
 
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v_24fps/video0007-seed0.mp4"
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_i2v_decoded/video_0007.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">bionic prosthetic hand on dark background.</p>
@@ -692,7 +703,8 @@
 
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v_24fps/video0008-seed0.mp4"
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_i2v_decoded/video_0008.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">a close-up of a hippopotamus eating grass in a field</p>
@@ -700,7 +712,8 @@
 
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v_24fps/video0009-seed0.mp4"
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_i2v_decoded/video_0009.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">a highland cow with long horns standing in a field</p>
@@ -710,7 +723,8 @@
       <div id="results-carousel" class="carousel results-carousel">
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v_24fps/video0010-seed0.mp4"
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_i2v_decoded/video_0010.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Rocket blasting off from a laptop screen on an organized office table. The rocket
@@ -719,7 +733,8 @@
 
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v_24fps/video0011-seed0.mp4"
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_i2v_decoded/video_0011.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">Close up of the feet of a woman in socks walking away on laminate floor at home
@@ -728,7 +743,8 @@
 
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v_24fps/video0012-seed0.mp4"
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_i2v_decoded/video_0012.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">The festive atmosphere highlights the celebration of the new year, showcasing bright
@@ -737,7 +753,8 @@
 
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v_24fps/video0013-seed0.mp4"
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_i2v_decoded/video_0013.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">two cars that have been involved in a violent collision</p>
@@ -745,7 +762,8 @@
 
         <div class="item">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-            <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/i2v_24fps/video0014-seed0.mp4"
+            <source
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_i2v_decoded/video_0014.mp4"
               type="video/mp4">
           </video>
           <p class="prompt-text">a man holding a tray in front of a brick wall</p>
@@ -766,7 +784,7 @@
             We compare our method with CogVideoX and MovieGen, the two leading competing approaches. Notably, our method
             is the only one that supports streaming inference with an interactive framerate (9.4FPS).
             In contrast, the other two methods require at least 210 seconds to generate a ten-second video.
-            Below, we present 10-second video results generated using prompts from MovieGenBench and a fixed random seed
+            Below, we present 5-second video results generated using prompts from MovieGenBench and a fixed random seed
             of 0.
           </p>
         </div>
@@ -807,7 +825,7 @@
         <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
           <video controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_short/ours/0000.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0005.mp4"
               type="video/mp4">
           </video>
         </div>
@@ -836,7 +854,7 @@
         <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
           <video controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_short/ours/0001.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0014.mp4"
               type="video/mp4">
           </video>
         </div>
@@ -862,7 +880,7 @@
         <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
           <video controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_short/ours/0004.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/5s_t2v_decoded/video_0012.mp4"
               type="video/mp4">
           </video>
         </div>
@@ -923,7 +941,7 @@
         <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_long/ours/0000.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_t2v_decoded/video_0011.mp4"
               type="video/mp4">
           </video>
         </div>
@@ -956,7 +974,7 @@
         <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_long/ours/0001.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_t2v_decoded/video_0012.mp4"
               type="video/mp4">
           </video>
         </div>
@@ -989,7 +1007,7 @@
         <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_long/ours/0002.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/30s_t2v_decoded/video_0013.mp4"
               type="video/mp4">
           </video>
         </div>
@@ -1008,6 +1026,7 @@
             paper (Table 4). We compare our method against multiple variants, including Causal Teacher (50 steps), Ours
             w/ Causal Teacher (4 steps), and Ours w/ Bidrectional Teacher (4 steps).
             The Ours w/ Bidirectional teacher is our final configuration.
+            We prsent 10-second 12 FPS video results generated using prompts from MovieGenBench and a fixed random seed of 0.
             These comparisons demonstrate that the distillation from a bidirectional teacher model, as employed in our
             approach, is crucial for generating high-quality videos.
           </p>
@@ -1050,7 +1069,7 @@
         <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/qualitative_t2v_short/ours/0000.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/10s_t2v_decoded/video_0002.mp4"
               type="video/mp4">
           </video>
         </div>
@@ -1072,6 +1091,7 @@
             the bidirectional diffusion teacher in frame-wise quality.
             However, it demonstrates minor shortcomings, including slightly increased temporal flickering and reduced
             diversity, pointing to areas for further improvement.
+            Below, we prsent 10-second 12 FPS video results generated using prompts from MovieGenBench.
           </p>
         </div>
       </div>
@@ -1103,7 +1123,7 @@
         <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0012.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/10s_t2v_decoded/video_0000.mp4"
               type="video/mp4">
           </video>
         </div>
@@ -1126,7 +1146,7 @@
         <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0020.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/10s_t2v_decoded/video_0001.mp4"
               type="video/mp4">
           </video>
         </div>
@@ -1152,7 +1172,7 @@
         <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0029.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/10s_t2v_decoded/video_0002.mp4"
               type="video/mp4">
           </video>
         </div>
@@ -1177,7 +1197,7 @@
         <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0033.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/10s_t2v_decoded/video_0003.mp4"
               type="video/mp4">
           </video>
         </div>
@@ -1201,7 +1221,7 @@
         <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/t2v/results/0035.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/10s_t2v_decoded/video_0004.mp4"
               type="video/mp4">
           </video>
         </div>
@@ -1224,7 +1244,7 @@
         <div class="item" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
           <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
             <source
-              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/teacher_comparison/ours_0.mp4"
+              src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/10s_t2v_decoded/video_0005.mp4"
               type="video/mp4">
           </video>
         </div>
@@ -1260,7 +1280,7 @@
         as the wheel spins. Camera captures the tactile quality of the clay and the fluid motion of the sculptor’s
         hands.</p>
 
-      <br>
+      <!-- <br>
       <br>
       <br>
       <hr>
@@ -1341,7 +1361,7 @@
       <p class="prompt-text">Several giant wooly mammoths approach treading through a snowy meadow, their long wooly
         fur lightly blows in the wind as they walk, snow covered trees and dramatic snow capped mountains in the
         distance, mid afternoon light with wispy clouds and a sun high in the distance creates a warm glow, the low
-        camera view is stunning capturing the large furry mammal with beautiful photography, depth of field.</p>
+        camera view is stunning capturing the large furry mammal with beautiful photography, depth of field.</p> -->
   </section>
 
   <section class="section" id="BibTeX">
