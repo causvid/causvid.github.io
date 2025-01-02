@@ -116,10 +116,16 @@
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body" id="demo">
-        <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
-          <source src="https://huggingface.co/datasets/tianweiy/causvid_website/resolve/main/videos/causvid_teaser.mp4"
-            type="video/mp4">
-        </video>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 20px;">
+          <iframe
+            src="https://www.youtube.com/embed/nXAT18XuEKc?si=2-01A_bhfzPQteuD&playlist=nXAT18XuEKc&loop=1&autoplay=1&mute=1"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+        </div>
+
         <h2 class="subtitle has-text-centered" style="font-size: 1.25em;">
           Instant video generation that plays the moment you hit Generate!
         </h2>
