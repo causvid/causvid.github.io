@@ -63,7 +63,8 @@
           <div class="column has-text-centered">
             <br>
 
-            <h1 class="title is-1 publication-title">From Slow Bidirectional to <br> Fast Autoregressive Video Diffusion Models</h1>
+            <h1 class="title is-1 publication-title">From Slow Bidirectional to <br> Fast Autoregressive Video Diffusion
+              Models</h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
                 <a href="https://tianweiy.github.io/">Tianwei Yin</a><sup>1*</sup>,
@@ -95,9 +96,9 @@
               <span class="author-block"><sup>*</sup>Equal Contribution</span>
             </div>
 
-            <div class="column has-text-centered">
-              CVPR 2025 
-            </div>  
+            <div class="is-size-5 column has-text-centered">
+              <strong>CVPR 2025</strong>
+            </div>
 
             <div class="column has-text-centered">
               <div class="publication-links">
@@ -108,6 +109,15 @@
                     </span>
                     <span>Paper (ArXiv)</span>
                   </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://github.com/tianweiy/CausVid"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                    </a>
                 </span>
               </div>
             </div>
@@ -123,11 +133,9 @@
         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 20px;">
           <iframe
             src="https://www.youtube.com/embed/nXAT18XuEKc?si=2-01A_bhfzPQteuD&playlist=nXAT18XuEKc&loop=1&autoplay=1&mute=1"
-            title="YouTube video player"
-            frameborder="0"
+            title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+            allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
         </div>
 
         <h2 class="subtitle has-text-centered" style="font-size: 1.25em;">
@@ -177,16 +185,25 @@
         </figure>
         <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
           <p>
-            Current video diffusion models achieve impressive generation quality but struggle in interactive applications due to bidirectional attention dependencies.
+            Current video diffusion models achieve impressive generation quality but struggle in interactive
+            applications due to bidirectional attention dependencies.
             The generation of a single frame requires the model to process the entire sequence, including the future.
-            We address this limitation by adapting a pretrained bidirectional diffusion transformer to an autoregressive transformer that generates frames on-the-fly.
-            To further reduce latency, we extend distribution matching distillation (DMD) to videos, distilling 50-step diffusion model into a 4-step generator.
-            To enable stable and high-quality distillation, we introduce a student initialization scheme based on teacher's ODE trajectories, as well as an asymmetric distillation strategy that supervises a causal student model with a bidirectional teacher.
-            This approach effectively mitigates error accumulation in autoregressive generation, allowing long-duration video synthesis despite training on short clips.
-            Our model achieves a total score of 84.27 on the VBench-Long benchmark, surpassing all previous video generation models.    
-            It enables fast streaming generation of high-quality videos at 9.4 FPS on a single GPU thanks to KV caching. Our approach also enables streaming video-to-video translation, image-to-video, and dynamic prompting in a zero-shot manner.
+            We address this limitation by adapting a pretrained bidirectional diffusion transformer to an autoregressive
+            transformer that generates frames on-the-fly.
+            To further reduce latency, we extend distribution matching distillation (DMD) to videos, distilling 50-step
+            diffusion model into a 4-step generator.
+            To enable stable and high-quality distillation, we introduce a student initialization scheme based on
+            teacher's ODE trajectories, as well as an asymmetric distillation strategy that supervises a causal student
+            model with a bidirectional teacher.
+            This approach effectively mitigates error accumulation in autoregressive generation, allowing long-duration
+            video synthesis despite training on short clips.
+            Our model achieves a total score of 84.27 on the VBench-Long benchmark, surpassing all previous video
+            generation models.
+            It enables fast streaming generation of high-quality videos at 9.4 FPS on a single GPU thanks to KV caching.
+            Our approach also enables streaming video-to-video translation, image-to-video, and dynamic prompting in a
+            zero-shot manner.
             We will release the code based on an open-source model in the future.
-         </p>
+          </p>
         </div>
 
       </div>
@@ -1033,7 +1050,8 @@
             paper (Table 4). We compare our method against multiple variants, including Causal Teacher (50 steps), Ours
             w/ Causal Teacher (4 steps), and Ours w/ Bidrectional Teacher (4 steps).
             The Ours w/ Bidirectional teacher is our final configuration.
-            We prsent 10-second 12 FPS video results generated using prompts from MovieGenBench and a fixed random seed of 0.
+            We prsent 10-second 12 FPS video results generated using prompts from MovieGenBench and a fixed random seed
+            of 0.
             These comparisons demonstrate that the distillation from a bidirectional teacher model, as employed in our
             approach, is crucial for generating high-quality videos.
           </p>
@@ -1374,7 +1392,7 @@
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
-      <pre><code>@article{yin2025causvid,
+      <pre><code>@inproceedings{yin2025causvid,
         title={From Slow Bidirectional to Fast Autoregressive Video Diffusion Models},
         author={Yin, Tianwei and Zhang, Qiang and Zhang, Richard and Freeman, William T and Durand, Fredo and Shechtman, Eli and Huang, Xun},
         journal={CVPR},
